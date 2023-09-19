@@ -1,5 +1,12 @@
 export default function QueryProcessor(query: string): string {
 
+  if (query.toLowerCase().includes("which of the following numbers is the largest:")) {
+    const matches = query.match(/\d+/g);
+    // Convert the matches (which are strings) to actual numbers
+    const numbers = matches ? matches.map(Number) : [];
+    return (Math.max(...numbers)).toString();
+  }
+
   if (query.toLowerCase().includes("id")) {
     return (
       "Your Andrew ID is abournes"
