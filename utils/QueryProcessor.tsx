@@ -1,5 +1,12 @@
 export default function QueryProcessor(query: string): string {
 
+  if (query.toLowerCase().includes("what is") && query.toLowerCase().includes("which of the following numbers are primes:")) {
+    const matches = query.match(/\d+/g);
+    // Convert the matches (which are strings) to actual numbers
+    const numbers = matches ? matches.map(Number) : [];
+    return (numbers[1] * numbers[0]).toString();
+  }
+
   if (query.toLowerCase().includes("what is") && query.toLowerCase().includes("multiplied by")) {
     const matches = query.match(/\d+/g);
     // Convert the matches (which are strings) to actual numbers
@@ -27,6 +34,12 @@ export default function QueryProcessor(query: string): string {
     }
   }
 
+  if (query.toLowerCase().includes("what is") && query.toLowerCase().includes("minus")) {
+    const matches = query.match(/\d+/g);
+    // Convert the matches (which are strings) to actual numbers
+    const numbers = matches ? matches.map(Number) : [];
+    return (numbers[0] - numbers[1]).toString();
+  }
 
   if (query.toLowerCase().includes("what is") && query.toLowerCase().includes("plus")) {
     const matches = query.match(/\d+/g);
