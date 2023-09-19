@@ -1,9 +1,10 @@
 export default function QueryProcessor(query: string): string {
 
-  if (query.toLowerCase().includes("Which of the following numbers is both a square and a cube:")) {
+  if (query.toLowerCase().includes("which of the following numbers is both a square and a cube:")) {
     const matches = query.match(/\d+/g);
     // Convert the matches (which are strings) to actual numbers
     const numbers = matches ? matches.map(Number) : [];
+
     function isPerfectSquare(n) {
       return Math.sqrt(n) % 1 === 0;
     }
@@ -12,21 +13,19 @@ export default function QueryProcessor(query: string): string {
         return Math.cbrt(n) % 1 === 0;
     }
     
-    function numbersThatAreBothSquareAndCube(inputStr) {
-        const matches = inputStr.match(/\d+/g);
-        if (!matches) return [];
-    
-        return matches.map(Number).filter(num => {
-            for (let i = 1; i <= 18; i++) {
-                if (num === i * i && num === i * i * i) {
-                    return true;
-                }
-            }
-            return false;
-        });
-    }
+    const filteredNumbers = numbers.filter(num => isPerfectSquare(num) && isPerfectCube(num));
 
-    return (Math.max(...numbers)).toString();
+    if (filteredNumbers.length > 0) {
+        return filteredNumbers[0].toString();
+    }
+  }
+
+
+  if (query.toLowerCase().includes("what is") && query.toLowerCase().includes("plus")) {
+    const matches = query.match(/\d+/g);
+    // Convert the matches (which are strings) to actual numbers
+    const numbers = matches ? matches.map(Number) : [];
+    return (numbers[1] + numbers[0]).toString();
   }
 
   if (query.toLowerCase().includes("which of the following numbers is the largest:")) {
