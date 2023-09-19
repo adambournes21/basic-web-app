@@ -26,11 +26,11 @@ describe("QueryProcessor", () => {
             ));
     });
 
-    test('should return adam as name', () => {
+    test('What is your name?', () => {
         const query = "What is your name?";
         const response: string = QueryProcessor(query);
         expect(response).toBe((
-                "Your name is Adam"
+                "Rice Cracker"
             ));
     });
 });
