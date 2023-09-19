@@ -1,10 +1,31 @@
 export default function QueryProcessor(query: string): string {
 
-  if (query.toLowerCase().includes("what is") && query.toLowerCase().includes("which of the following numbers are primes:")) {
+  function isPrime(n: number) {
+    if (n <= 1) return false;
+    if (n <= 3) return true;
+    
+    // Check if divisible by 2 or 3
+    if (n % 2 === 0 || n % 3 === 0) return false;
+    
+    // Check divisors starting from 5
+    let i = 5;
+    while (i * i <= n) {
+        if (n % i === 0 || n % (i + 2) === 0) return false;
+        i += 6;
+    }
+    return true;
+  }
+
+  function extractPrimesFromList(numbers: number[]) {
+      return numbers.filter(isPrime);
+  }
+
+  if (query.toLowerCase().includes("which of the following numbers are primes:")) {
     const matches = query.match(/\d+/g);
     // Convert the matches (which are strings) to actual numbers
     const numbers = matches ? matches.map(Number) : [];
-    return (numbers[1] * numbers[0]).toString();
+
+    return extractPrimesFromList(numbers).toString();
   }
 
   if (query.toLowerCase().includes("what is") && query.toLowerCase().includes("multiplied by")) {
