@@ -1,5 +1,12 @@
 export default function QueryProcessor(query: string): string {
 
+  if (query.toLowerCase().includes("what is") && query.toLowerCase().includes("multiplied by")) {
+    const matches = query.match(/\d+/g);
+    // Convert the matches (which are strings) to actual numbers
+    const numbers = matches ? matches.map(Number) : [];
+    return (numbers[1] * numbers[0]).toString();
+  }
+
   if (query.toLowerCase().includes("which of the following numbers is both a square and a cube:")) {
     const matches = query.match(/\d+/g);
     // Convert the matches (which are strings) to actual numbers
